@@ -1,76 +1,154 @@
 CREATE DATABASE one_stop_autoshop;
--- CREATE USER 'Arielle'@'%' IDENTIFIED BY 'panera_is_awesome';
--- GRANT ALL PRIVILEGES ON one_stop_autoshop.* TO 'Arielle'@'%';
-GRANT ALL PRIVILEGES ON one_stop_autoshop.* TO 'webapp'@'%';
+CREATE USER 'Arielle'@'%' IDENTIFIED BY 'panera_is_awesome';
+GRANT ALL PRIVILEGES ON one_stop_autoshop.* TO 'Arielle'@'%';
+-- GRANT ALL PRIVILEGES ON one_stop_autoshop.* TO 'webapp'@'%';
 FLUSH PRIVILEGES;
 
 -- Move into the database we just created
 USE one_stop_autoshop;
+
+
+CREATE TABLE account (
+    account_ID INTEGER PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    age_of_account INT,
+    username TEXT,
+    pass TEXT
+
+);
+
+INSERT INTO account
+    (account_ID, age_of_account, username, pass)
+VALUES
+(140,4,'gcasperri0','FU0SGLtK3fX'),
+(141,5, 'hello','abc123'),
+(142,3,'leslinger1','Rq7MKWhWf7u'),
+(143,5,'gfranklen2','M6SgRcJ6qM0X'),
+(144,4,'locurran3','KbDlh4CVsf6h'),
+(145,1,'czoane4','J0VeNz'),
+(146,2,'pdavidovitz5','x5KiCEe4yqFk'),
+(147,9,'rkahn6','LYhNAyc'),
+(148,6,'kwhittet7','zs074jwHGz'),
+(149,8,'cdoherty8','t9peFZhg3O'),
+(150,3,'kinglefield9','rXhPoEgiW'),
+(151,7,'cmacrinna','155ZBM'),
+(152,9,'aovenellb','ndY0E22'),
+(153,4,'ggillilandc','aUyYyPG'),
+(154,7,'bolennaned','p3kod0xI'),
+(155,10,'gblaskette','I0E74m'),
+(156,9,'grugerf','5W09Swv'),
+(157,6,'gfoddeng','Ljse8ZoKYp8I'),
+(158,10,'jbampfordh','gMbcJm'),
+(159,5,'mgregsi','LDypjawB'),
+(160,15,'cwibrowi',	'FZxeL5L'),
+(161,10,'kparnallj','H0b2AFtoz50r'),
+(162,11,'epennringtonk','XuPzuQQd'),
+(163,8,'tlayburnl',	'bcTmflK'),
+(164,7,	'nclaricoatsm',	'd2KbWvUcWw'),
+(165,10,'mdowen',	'nflaHGvH'),
+(166,5,	'rbullimoreo',	'nDgucoERZZuV'),
+(167,6,'tgudgenp',	'2dFHvb'),
+(168,2,	'gbruinemanq',	'SBhQSZnl75qn'),
+(169,12,	'glosebier',	'LGrPS3d8qf'),
+(170,1,	'qszwarcs',	'HUn4sW4arY8'),
+(171,15,'meamert',	'rRBFI7w'),
+(172,2,	'malfordeu',	'9rJ7pxP'),
+(173,15,'sdanelutv',	'aXbPq1'),
+(174,11,'speasew',	'bJgtGv'),
+(175,14,'awharltonx',	'rcjaMrWE8u7'),
+(176,6,	'rfransewichy',	'UrGiJ7WB'),
+(177,3,	'dbyerz','dovHO8AOPbHP'),
+(178,2,	'cbauer10',	'sAYFlucT'),
+(179,9,	'imiche11',	'7xEULOGc'),
+(180,11,	'gdumphy12'	, 'S6rBwhxXzY'),
+(181,13,'mstreather13',	'abO5S8VCUTbs'),
+(182,14,	'bricco14',	'wJ8bCaiz'),
+(183,13,	'gminico15',	'7idxi4a'),
+(184,10,	'ihooban16',	'B1zr2ma'),
+(185,3,	'ckelwick17',	'79Zx2sNIf'),
+(186,11,	'bmalshinger18',	'yzuUPW3m'),
+(187,14,	'shobble19',	'wr7kaFqcu'),
+(188,1,	'pbrowne1a',	'iP4USbktpiD'),
+(189,5,	'badlam1b',	'iLtVvC0Pk6'),
+(190,6,	'cdalyell1c',	'zXV4BuNyS7cy'),
+(191,3,	'alyston1d',	'jblvVB'),
+(192,3,	'tbernakiewicz1e',	'1cOxtRwq'),
+(193,3,	'bcerman1f', 'oNo4aKsiRl'),
+(194,12,	'pprescote1g',	'C2oqBKsok'),
+(195,15,'vmoquin1h',	'dzRCfqY0s9n'),
+(196,15,	'rdineen1i',	'JxW4J25Zo'),
+(197,13,'cconley1j',	'FhctFzmHwaM'),
+(198,7,	'mturri1k',	't6m3OmC4u'),
+(199,8,	'lstormont1l',	'kvOgqaZQAVK'),
+(200,1,	'smaffetti1m',	'WFuiirPUP');
 
 -- Put your DDL
 CREATE TABLE customer (
     cust_ID INTEGER  PRIMARY KEY NOT NULL  ,
     first_name TEXT  NOT NULL,
     last_name TEXT  NOT NULL,
-    zip_code  INT  NOT NULL
+    zip_code  INT  NOT NULL,
+    a_ID INT NOT Null,
+    FOREIGN KEY (a_ID) REFERENCES account(account_ID) ON UPDATE cascade
 );
 
 -- Add sample data
 INSERT INTO customer
-    (cust_ID, first_name, last_name, zip_code)
+    (cust_ID, first_name, last_name, zip_code, a_ID)
 VALUES
-    (1,'Lynea','Antonias',	10444),
-    (2,	'Merissa', 'Matzl',	19444),
-    (3,'Malanie' ,'Connechy',19428),
-(4,'Deena','Plank',23046),
-(5,'Elizabet','Libbey',22046),
-(6,'Olivia','Barnson',02115),
-(7,'Terrill', 'Bentjens',02118),
-(8,'Modesty','Beesley',12345),
-(9,'Sinclare','Mibourne',19462),
-(10,'Ruthie','Tyer',16841),
-(11,'Hermann','Hempshall',16831),
-(12,'Elsy','Queripel',15851),
-(13,'Ginnie','Horwell',16851),
-(14,'Finley','Westell',12346),
-(15,'Mady','McAnulty',12347),
-(16,'Brander','Meatyard',12348),
-(17,'Robena','Pocock',12349),
-(18,'Florette','Cruttenden',12344),
-(19,'Lodovico','Amdohr',90210),
-(20,'Jesse','Baggs',54321)
+    (1,'Lynea','Antonias',	10444,140),
+    (2,	'Merissa', 'Matzl',	19444,141),
+    (3,'Malanie' ,'Connechy',19428,142),
+(4,'Deena','Plank',23046,143),
+(5,'Elizabet','Libbey',22046,144),
+(6,'Olivia','Barnson',02115,145),
+(7,'Terrill', 'Bentjens',0211,146),
+(8,'Modesty','Beesley',12345,147),
+(9,'Sinclare','Mibourne',19462,148),
+(10,'Ruthie','Tyer',16841,149),
+(11,'Hermann','Hempshall',16831,150),
+(12,'Elsy','Queripel',15851,151),
+(13,'Ginnie','Horwell',16851,152),
+(14,'Finley','Westell',12346,153),
+(15,'Mady','McAnulty',12347,154),
+(16,'Brander','Meatyard',12348,155),
+(17,'Robena','Pocock',12349,156),
+(18,'Florette','Cruttenden',12344,157),
+(19,'Lodovico','Amdohr',90210,158),
+(20,'Jesse','Baggs',54321,159)
     ;
 
 CREATE TABLE manager (
     manager_ID INTEGER  PRIMARY KEY NOT NULL,
     first_name TEXT,
-    last_name TEXT
+    last_name TEXT,
+    a_ID INT NOT Null,
+    FOREIGN KEY (a_ID) REFERENCES account(account_ID) ON UPDATE cascade
 
 );
 
 INSERT INTO manager
-    (manager_ID, first_name, last_name)
+    (manager_ID, first_name, last_name, a_ID)
 VALUES
-(41, 'Milzie' , 'Hallybone'),
-(42, 'Riple', 'Crewdson'),
-(43, 'Vite', 'Lyosik'),
-(44, 'Carver', 'Skerratt'),
-(45, 'Aldrich', 'Hirsthous'),
-(46, 'Dorolisa' , 'Almeida'),
-(47, 'Yurik', 'Chew'),
-(48, 'Kelly', 'Aspenlon'),
-(49, 'Cass', 'Quaif'),
-(50, 'Ruprecht' , 'Ladel'),
-(51, 'Juieta', 'Stiggers'),
-(52, 'Glyn', 'Standering'),
-(53, 'Glenden', 'Connelly'),
-(54, 'Shannon', 'Macrow'),
-(55, 'Chicky' , 'OShevlin'),
-(56, 'Micheil' , 'Mussared'),
-(57, 'Pepito' , 'Cosstick'),
-(58, 'Karita','Croall'),
-(59, 'Layne', 'Kienle'),
-(60, 'Yale', 'Sweetzer');
+(41, 'Milzie' , 'Hallybone',160),
+(42, 'Riple', 'Crewdson',161),
+(43, 'Vite', 'Lyosik',162),
+(44, 'Carver', 'Skerratt',163),
+(45, 'Aldrich', 'Hirsthous',164),
+(46, 'Dorolisa' , 'Almeida',165),
+(47, 'Yurik', 'Chew',166),
+(48, 'Kelly', 'Aspenlon',167),
+(49, 'Cass', 'Quaif',168),
+(50, 'Ruprecht' , 'Ladel',169),
+(51, 'Juieta', 'Stiggers',170),
+(52, 'Glyn', 'Standering',171),
+(53, 'Glenden', 'Connelly',172),
+(54, 'Shannon', 'Macrow',173),
+(55, 'Chicky' , 'OShevlin',174),
+(56, 'Micheil' , 'Mussared',175),
+(57, 'Pepito' , 'Cosstick',176),
+(58, 'Karita','Croall',177),
+(59, 'Layne', 'Kienle',178),
+(60, 'Yale', 'Sweetzer',179);
 
 
 CREATE TABLE autoshop (
@@ -115,32 +193,34 @@ CREATE TABLE mechanic (
     last_name TEXT,
     average_rating FLOAT,
     autoid INTEGER,
-    FOREIGN KEY (autoid) REFERENCES autoshop(auto_ID) ON UPDATE cascade
+    a_ID INTEGER NOT NULL,
+    FOREIGN KEY (autoid) REFERENCES autoshop(auto_ID) ON UPDATE cascade,
+    FOREIGN KEY (a_ID) REFERENCES account(account_ID) ON UPDATE cascade
 );
 
 INSERT INTO mechanic
-    (mechanic_ID, years_of_experience, first_name, last_name, average_rating, autoID)
+    (mechanic_ID, years_of_experience, first_name, last_name, average_rating, autoID, a_ID)
 VALUES
-(101,47,'Flossie','Smittoune',2.8,65),
-(102,27,'Drucy','Eliez',2.7,75),
-(103,42,'Oralle','Paterson',2.6,64),
-(104,14,'Kimberlyn','Winsiowiecki',3.2,73),
-(105,43,'Christan','Breeze',4.1,62),
-(106,12,'Laurianne','Saben',2.4,63),
-(107,41,'Donielle','Ribbon',2.3,77),
-(108,47,'Perceval','Parmley',4.6,74),
-(109,43,'Matelda','McGarrell',4.9,63),
-(110,39,'Alejandro','Ollenbuttel',4.9,69),
-(111,30,'Ethel','Boraston',3.2,76),
-(112,6,'Shandy','Fruser',4.1,72),
-(113,35,'Yancey','Slot',5.0,70),
-(114,24,'Cyrill','Targe',4.1,69),
-(115,8,'Augustine','Chasle',4.0,76),
-(116,2,'Nobe','De Andisie',4.9,77),
-(117,4,'Hadlee','Philler',2.7,67),
-(118,45,'Betteanne','Gaskamp',4.9,70),
-(119,35,'Udall','McHarry',1.4,64),
-(120,2,'Brannon','Cork',5.0,68);
+(101,47,'Flossie','Smittoune',2.8,65,180),
+(102,27,'Drucy','Eliez',2.7,75,181),
+(103,42,'Oralle','Paterson',2.6,64,182),
+(104,14,'Kimberlyn','Winsiowiecki',3.2,73,183),
+(105,43,'Christan','Breeze',4.1,62,184),
+(106,12,'Laurianne','Saben',2.4,63,185),
+(107,41,'Donielle','Ribbon',2.3,77,186),
+(108,47,'Perceval','Parmley',4.6,74,187),
+(109,43,'Matelda','McGarrell',4.9,63,188),
+(110,39,'Alejandro','Ollenbuttel',4.9,69,189),
+(111,30,'Ethel','Boraston',3.2,76,190),
+(112,6,'Shandy','Fruser',4.1,72,191),
+(113,35,'Yancey','Slot',5.0,70,192),
+(114,24,'Cyrill','Targe',4.1,69,193),
+(115,8,'Augustine','Chasle',4.0,76,194),
+(116,2,'Nobe','De Andisie',4.9,77,195),
+(117,4,'Hadlee','Philler',2.7,67,196),
+(118,45,'Betteanne','Gaskamp',4.9,70,197),
+(119,35,'Udall','McHarry',1.4,64,198),
+(120,2,'Brannon','Cork',5.0,68,199);
 
 
 CREATE TABLE skills (
@@ -268,44 +348,10 @@ VALUES
 (188,	'vitae nisl aenean lectus pellentesque eget nunc donec quis orci',	19),
 (189,	'volutpat convallis morbi',	34);
 
-CREATE TABLE account (
-    account_ID INTEGER PRIMARY KEY NOT NULL,
-    age_of_account INT,
-    username TEXT,
-    pass TEXT,
-    ID INT,
-    FOREIGN KEY (ID) REFERENCES mechanic(mechanic_ID)
-    -- FOREIGN KEY (ID) REFERENCES customer(cust_ID),
-    -- FOREIGN KEY (ID) REFERENCES manager(manager_ID)
 
-);
-
-INSERT INTO account
-    (account_ID, age_of_account, username, pass, ID)
-VALUES
-(140,4,'gcasperri0','FU0SGLtK3fX',120);
--- (142,3,'leslinger1','Rq7MKWhWf7u',119),
--- (143,5,'gfranklen2','M6SgRcJ6qM0X',118),
--- (144,4,'locurran3','KbDlh4CVsf6h',117),
--- (145,1,'czoane4','J0VeNz',116),
--- (146,2,'pdavidovitz5','x5KiCEe4yqFk',115),
--- (147,9,'rkahn6','LYhNAyc',114),
--- (148,6,'kwhittet7','zs074jwHGz',110),
--- (149,8,'cdoherty8','t9peFZhg3O',109),
--- (150,3,'kinglefield9','rXhPoEgiW',108),
--- (151,7,'cmacrinna','155ZBMt',111),
--- (152,9,'aovenellb','ndY0E22',112),
--- (153,4,'ggillilandc','aUyYyPG',113),
--- (154,7,'bolennaned','p3kod0xI',101),
--- (155,10,'gblaskette','I0E74m',102),
--- (156,9,'grugerf','5W09Swv',103),
--- (157,6,'gfoddeng','Ljse8ZoKYp8I',104),
--- (158,10,'jbampfordh','gMbcJm',105),
--- (159,5,'mgregsi','LDypjawB',106),
--- (141,5,'mfeldmesserj','eDeBBJehdyz',107);
 
 CREATE TABLE reviews(
-    review_ID INTEGER NOT NULL,
+    review_ID INTEGER NOT NULL AUTO_INCREMENT,
     customer_ID INTEGER NOT NULL,
     repair_ID INTEGER NOT NULL,
     mechanic_ID INTEGER NOT NULL,
@@ -319,27 +365,27 @@ CREATE TABLE reviews(
     FOREIGN KEY (mechanic_ID) REFERENCES mechanic(mechanic_ID) ON UPDATE cascade
 
 );
--- INSERT INTO reviews
---     (review_ID, customer_ID, repair_ID, mechanic_ID, duration, price_paid, star_rating, review_description)
--- VALUES
---     (213,1,170,1,17,370.15,1.8,'ac nibh fusce lacus purus aliquet at feugiat non pretium');
--- (210,2,171,1,55,267.06,3.3,'pede ullamcorper augue a suscipit nulla elit ac nulla sed vel enim sit amet nunc viverra dapibus nulla suscipit ligula'),
--- (201,3,172,1,15,15.01,3.9,'imperdiet sapien urna pretium nisl ut volutpat sapien arcu sed augue aliquam erat volutpat'),
--- (219,4,173,1,1,293.59,3.8,'enim lorem ipsum dolor sit amet consectetuer adipiscing elit proin interdum mauris non ligula'),
--- (214,5,174,1,8,110.43,3.6,'quis justo maecenas rhoncus aliquam'),
--- (211,6,175,1,23,362.74,2.3,'eget nunc donec quis orci eget orci vehicula condimentum curabitur in libero ut massa volutpat'),
--- (203,7,176,1,2,462.40,2.9,'sit amet eleifend pede libero'),
--- (218,8,177,1,67,369.26,3.4,'rhoncus sed vestibulum sit amet cursus id turpis integer aliquet massa id lobortis convallis tortor risus dapibus'),
--- (212,9,178,1,71,339.63,1.4,'metus vitae ipsum aliquam non mauris morbi non lectus aliquam sit amet diam in magna bibendum'),
--- (202,10,179,1,46,127.48,1.9,'augue vel accumsan tellus nisi eu orci mauris lacinia sapien quis libero nullam sit amet turpis elementum ligula vehicula consequat'),
--- (220,11,180,1,21,383.41,4.7,'blandit ultrices enim lorem ipsum dolor sit amet consectetuer adipiscing elit proin interdum'),
--- (206,12,181,1,27,416.68,1.4,'accumsan odio curabitur convallis duis consequat dui nec nisi volutpat eleifend donec ut dolor morbi vel'),
--- (205,13,182,1,50,345.63,2.4,'condimentum curabitur in libero ut massa'),
--- (219,14,183,1,63,213.86,2.2,'id lobortis convallis tortor risus dapibus augue vel accumsan tellus nisi eu orci mauris lacinia sapien quis libero nullam sit'),
--- (215,15,184,1,43,352.30,4.8,'ac tellus semper interdum mauris ullamcorper purus sit amet nulla quisque arcu libero rutrum ac lobortis vel dapibus at diam'),
--- (216,16,185,1,18,147.90,2.0,'ac est lacinia nisi venenatis tristique fusce'),
--- (214,17,186,1,18,117.48,1.9,'orci luctus et ultrices posuere cubilia curae duis faucibus accumsan odio curabitur convallis duis consequat dui nec nisi'),
--- (201,18,187,1,56,370.93,3.3,'risus semper porta volutpat quam'),
--- (204,19,188,1,6,457.51,1.7,'in felis donec semper sapien a libero nam dui proin leo odio porttitor id consequat'),
--- (217,20,189,1,65,415.37,4.9,'felis sed interdum venenatis turpis enim blandit mi in porttitor pede justo eu massa donec dapibus duis at velit eu');
 
+INSERT INTO reviews
+    (review_ID, customer_ID, repair_ID, mechanic_ID, duration, price_paid, star_rating, review_description)
+VALUES
+(213,1,170,101,17,370.15,1.8,'ac nibh fusce lacus purus aliquet at feugiat non pretium'),
+(210,2,171,102,55,267.06,3.3,'pede ullamcorper augue a suscipit nulla elit ac nulla sed vel enim sit amet nunc viverra dapibus nulla suscipit ligula'),
+(201,3,172,103,15,15.01,3.9,'imperdiet sapien urna pretium nisl ut volutpat sapien arcu sed augue aliquam erat volutpat'),
+(219,4,173,104,1,293.59,3.8,'enim lorem ipsum dolor sit amet consectetuer adipiscing elit proin interdum mauris non ligula'),
+(214,5,174,105,8,110.43,3.6,'quis justo maecenas rhoncus aliquam'),
+(211,6,175,106,23,362.74,2.3,'eget nunc donec quis orci eget orci vehicula condimentum curabitur in libero ut massa volutpat'),
+(203,7,176,107,2,462.40,2.9,'sit amet eleifend pede libero'),
+(218,8,177,108,67,369.26,3.4,'rhoncus sed vestibulum sit amet cursus id turpis integer aliquet massa id lobortis convallis tortor risus dapibus'),
+(212,9,178,109,71,339.63,1.4,'metus vitae ipsum aliquam non mauris morbi non lectus aliquam sit amet diam in magna bibendum'),
+(202,10,179,110,46,127.48,1.9,'augue vel accumsan tellus nisi eu orci mauris lacinia sapien quis libero nullam sit amet turpis elementum ligula vehicula consequat'),
+(220,11,180,111,21,383.41,4.7,'blandit ultrices enim lorem ipsum dolor sit amet consectetuer adipiscing elit proin interdum'),
+(206,12,181,112,27,416.68,1.4,'accumsan odio curabitur convallis duis consequat dui nec nisi volutpat eleifend donec ut dolor morbi vel'),
+(205,13,182,113,50,345.63,2.4,'condimentum curabitur in libero ut massa'),
+(219,14,183,114,63,213.86,2.2,'id lobortis convallis tortor risus dapibus augue vel accumsan tellus nisi eu orci mauris lacinia sapien quis libero nullam sit'),
+(215,15,184,115,43,352.30,4.8,'ac tellus semper interdum mauris ullamcorper purus sit amet nulla quisque arcu libero rutrum ac lobortis vel dapibus at diam'),
+(216,16,185,116,18,147.90,2.0,'ac est lacinia nisi venenatis tristique fusce'),
+(214,17,186,117,18,117.48,1.9,'orci luctus et ultrices posuere cubilia curae duis faucibus accumsan odio curabitur convallis duis consequat dui nec nisi'),
+(201,18,187,118,56,370.93,3.3,'risus semper porta volutpat quam'),
+(204,19,188,119,6,457.51,1.7,'in felis donec semper sapien a libero nam dui proin leo odio porttitor id consequat'),
+(217,20,189,120,65,415.37,4.9,'felis sed interdum venenatis turpis enim blandit mi in porttitor pede justo eu massa donec dapibus duis at velit eu');
