@@ -7,12 +7,12 @@ mechanics = Blueprint('mechanics', __name__)
 
 # Get all customers from the DB
 @mechanics.route('/test_mechanics', methods=['GET'])
-def isnt_this_fun():
+def nothing():
     return '<h1>Yay!</h1>'
 
 # Get all mechanics from the DB
 @mechanics.route('/mechanics', methods=['GET'])
-def get_customers():
+def get_mechanics():
     cursor = db.get_db().cursor()
     cursor.execute('select * from mechanic')
     row_headers = [x[0] for x in cursor.description]
