@@ -24,7 +24,7 @@ def get_customers():
 @customers.route('/customers/profile/<userID>', methods=['GET'])
 def get_profile(userID):
     cursor = db.get_db().cursor()
-    cursor.execute('select first_name, last_name, cust_ID, zip_code from customers where cust_ID = {0}'.format(userID))
+    cursor.execute('select first_name, last_name, cust_ID, zip_code from customer where cust_ID = {0}'.format(userID))
     row_headers = [x[0] for x in cursor.description]
     json_data = []
     theData = cursor.fetchall()
@@ -39,7 +39,7 @@ def get_profile(userID):
 @customers.route('/customers/account/<userID>', methods=['GET'])
 def get_account(userID):
     cursor = db.get_db().cursor()
-    cursor.execute('select a.username, a.account_ID, a.age_of_account from account a join customers c where c.a_ID = a.acount_ID and where c.cust_ID = {0}'.format(userID))
+    cursor.execute('select a.username, a.account_ID, a.age_of_account from account a join customer c where c.a_ID = a.acount_ID and where c.cust_ID = {0}'.format(userID))
     row_headers = [x[0] for x in cursor.description]
     json_data = []
     theData = cursor.fetchall()
