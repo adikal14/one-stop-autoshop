@@ -25,4 +25,20 @@ def get_mechanics():
     the_response.mimetype = 'application/json'
     return the_response
 
+
+# Get all information for a single mechanic
+
+
+# Get all work place information for chosen mechanic
+
+
+# Get all Account Information for chosen mechanic
+
+
+# Get all Skills information for chosen mechanic
+
+
+# Get all past reviews for chosen mechanic
+
+
     
