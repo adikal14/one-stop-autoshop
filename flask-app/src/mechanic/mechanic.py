@@ -46,7 +46,7 @@ def get_profile(userID):
 @mechanics.route('/mechanics/workplace/<userID>', methods=['GET'])
 def get_workplace(userID):
     cursor = db.get_db().cursor()
-    cursor.execute('select a.name, a.street, a.city, a.state, a.postalcode, man.first_name, man.last_name from account a join mechanic m join manager man where m.autoID = a.auto_ID and a.managerID = man.manager_ID and m.mechanic_ID={0}'.format(userID))
+    cursor.execute('select a.name, a.street, a.city, a.state, a.postalcode, man.first_name, man.last_name from autoshop a join mechanic m join manager man where m.autoID = a.auto_ID and a.managerID = man.manager_ID and m.mechanic_ID={0}'.format(userID))
     row_headers = [x[0] for x in cursor.description]
     json_data = []
     theData = cursor.fetchall()
@@ -61,7 +61,7 @@ def get_workplace(userID):
 @mechanics.route('/mechanics/account/<userID>', methods=['GET'])
 def get_account(userID):
     cursor = db.get_db().cursor()
-    cursor.execute('select a.username, a.account_ID, a.age_of_account from account a join mechanic m where m.a_ID = a.account_ID and m.manager_ID = {0}'.format(userID))
+    cursor.execute('select a.username, a.account_ID, a.age_of_account from account a join mechanic m where m.a_ID = a.account_ID and m.mechanic_ID = {0}'.format(userID))
     row_headers = [x[0] for x in cursor.description]
     json_data = []
     theData = cursor.fetchall()
@@ -74,7 +74,7 @@ def get_account(userID):
 
 
 # Get all Skills information for chosen mechanic
-@mechanics.route('/mechanics/skills', methods=['GET'])
+@mechanics.route('/mechanics/skills/<userID>', methods=['GET'])
 def get_skills(userID):
     cursor = db.get_db().cursor()
     cursor.execute('select s.description, s.price, s.duration from skills s join mechanic m join mechanic_skills ms where s.skill_ID = ms.skill_ID and ms.mechanic_ID = m.mechanic_ID ')
