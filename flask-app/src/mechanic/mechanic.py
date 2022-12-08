@@ -74,9 +74,35 @@ def get_account(userID):
 
 
 # Get all Skills information for chosen mechanic
+@mechanics.route('/mechanics/skills', methods=['GET'])
+def get_skills(userID):
+    cursor = db.get_db().cursor()
+    cursor.execute('select s.description, s.price, s.duration from skills s join mechanic m join mechanic_skills ms where s.skill_ID = ms.skill_ID and ms.mechanic_ID = m.mechanic_ID ')
+    row_headers = [x[0] for x in cursor.description]
+    json_data = []
+    theData = cursor.fetchall()
+    for row in theData:
+        json_data.append(dict(zip(row_headers, row)))
+    the_response = make_response(jsonify(json_data))
+    the_response.status_code = 200
+    the_response.mimetype = 'application/json'
+    return the_response
 
 
 # Get all past reviews for chosen mechanic
+@mechanics.route('/mechanics/reviews/<userID>', methods=['GET'])
+def get_reviews(userID):
+    cursor = db.get_db().cursor()
+    cursor.execute('select r.duration, r.price_paid, r.star_rating, r.review_description from reviews r where r.mechanic_ID = {0}'.format(userID))
+    row_headers = [x[0] for x in cursor.description]
+    json_data = []
+    theData = cursor.fetchall()
+    for row in theData:
+        json_data.append(dict(zip(row_headers, row)))
+    the_response = make_response(jsonify(json_data))
+    the_response.status_code = 200
+    the_response.mimetype = 'application/json'
+    return the_response
 
 
     
