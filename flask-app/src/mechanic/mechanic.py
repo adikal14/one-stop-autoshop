@@ -43,10 +43,10 @@ def get_profile(userID):
 
 
 # Get all work place information for chosen mechanic
-@mechanics.route('/mechanics/workplace/<userID>', method=['GET'])
+@mechanics.route('/mechanics/workplace/<userID>', methods=['GET'])
 def get_workplace(userID):
     cursor = db.get_db().cursor()
-    cursor.execute('select a.name, a.street, a.city, a.state, a.postalcode, man.first_name, man.last_name from account a join mechanic m join manager man where m.autoID = a.auto_ID and a.managerID = man.manager_ID and m.mechanic_ID={0}'.format(userID))
+    cursor.execute('select a.name, a.street, a.city, a.state, a.postalcode, man.first_name, man.last_name from autoshop a join mechanic m join manager man where m.autoID = a.auto_ID and a.managerID = man.manager_ID and m.mechanic_ID={0}'.format(userID))
     row_headers = [x[0] for x in cursor.description]
     json_data = []
     theData = cursor.fetchall()
