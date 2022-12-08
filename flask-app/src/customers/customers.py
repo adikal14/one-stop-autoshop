@@ -6,6 +6,7 @@ from src import db
 customers = Blueprint('customers', __name__)
 
 # Get all customers from the DB
+# DELETE THIS 
 @customers.route('/customers', methods=['GET'])
 def get_customers():
     cursor = db.get_db().cursor()
@@ -39,7 +40,10 @@ def get_profile(userID):
 @customers.route('/customers/account/<userID>', methods=['GET'])
 def get_account(userID):
     cursor = db.get_db().cursor()
-    cursor.execute('select a.username, a.account_ID, a.age_of_account from account a join customer c where c.a_ID = a.acount_ID and where c.cust_ID = {0}'.format(userID))
+    query = 'select a.username, a.account_ID, a.age_of_account from account a join customer c where c.a_ID = a.account_ID and c.cust_ID = {0}'.format(userID)
+    current_app.logger.info(query)
+    # cursor.execute('select a.username, a.account_ID, a.age_of_account from account a join customer c where c.a_ID = a.acount_ID and where c.cust_ID = {0}'.format(userID))
+    cursor.execute(query)
     row_headers = [x[0] for x in cursor.description]
     json_data = []
     theData = cursor.fetchall()
@@ -70,7 +74,7 @@ def get_vehicle(userID):
 @customers.route('/customers/reviews/<userID>', methods=['GET'])
 def get_reviews(userID):
     cursor = db.get_db().cursor()
-    cursor.execute('select duration, price_paid, star_rating, review_description from reviews customer_ID = {0}'.format(userID))
+    cursor.execute('select r.duration, r.price_paid, r.star_rating, r.review_description from reviews r where r.customer_ID = {0}'.format(userID))
     row_headers = [x[0] for x in cursor.description]
     json_data = []
     theData = cursor.fetchall()
@@ -80,14 +84,15 @@ def get_reviews(userID):
     the_response.status_code = 200
     the_response.mimetype = 'application/json'
     return the_response
+
 '''
 @customers.route('/customers', methods=['POST'])
 def add_review():
     current_app.logger.info(request.form)
-    query = f 'INSERT INTO student values' ({request.form["nuid"]});
+    query = f 'INSERT INTO reviews' ({request.form["nuid"]});
     return "Hello"
 '''
-
+#do a post request to add a vehicle
 #insert ngrok link, change method to POST, go to body, make sure it says "muli-part form"
 #insert as keys what the input things are in your input thing
 ##{{variablename.inputText}} in the value (you'll see the variable name to the right of the widget)

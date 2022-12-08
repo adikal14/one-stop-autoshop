@@ -292,31 +292,33 @@ CREATE TABLE cars (
     make TEXT,
     model TEXT,
     car_year INTEGER,
-    miles FLOAT);
+    miles FLOAT,
+    cust_ID INTEGER,
+    FOREIGN KEY (cust_ID) REFERENCES customer(cust_ID));
 
 INSERT INTO cars
-    (vin_num, make, model, car_year, miles)
+    (vin_num, make, model, car_year, miles, cust_ID)
 VALUES
-    ('WA1YD64B33N581646','Hummer','H3T',2010,7),
-('1N6AA0ED9FN040079','Chrysler','LHS',1995,20),
-('YV1902AH5B1486996','Ford','Explorer Sport',2001,15),
-('JN8AF5MV3FT012290','Saab','9-3',2000,26),
-('1GYUCGEFXAR404042','Mazda','Mazdaspeed 3',2009,7),
-('2HNYD28478H177124','Mazda','Miata MX-5',2004,11),
-('1D4RD4GG5BC148980','GMC','Safari',2000,11),
-('WBAVB73537K075304','Ford','ZX2',2003,61),
-('WAULC58E04A455140','Pontiac','Firebird',1997,21),
-('2C3CDYCJ4EH430920','Pontiac','Firebird',2001,54),
-('1G6DP5EV3A0941865','Mercedes-Benz','CLK-Class',2004,9),
-('WA1DVAFE3AD486819','Mercury','Mountaineer',2000,92),
-('WAUJGAFC7DN244662','Mazda','929',1995,54),
-('1G6DH8EY1B0105059','Eagle','Talon',1994,59),
-('JN1CV6EK2CM922670','Mazda','MPV',1997,87),
-('WAUNF98P78A491258','Jaguar','XF',2009,4),
-('KNAGM4ADXB5839233','Chevrolet','Camaro',1974,78),
-('WBAYF8C59ED228390','Pontiac','Grand Prix',1990,46),
-('1G6AB5R35F0787256','Toyota','Celica',1978,67),
-('WAUSG74FX9N744682','Chrysler','Town & Country',2012,67);
+    ('WA1YD64B33N581646','Hummer','H3T',2010,7,1),
+('1N6AA0ED9FN040079','Chrysler','LHS',1995,20,2),
+('YV1902AH5B1486996','Ford','Explorer Sport',2001,15,3),
+('JN8AF5MV3FT012290','Saab','9-3',2000,26,4),
+('1GYUCGEFXAR404042','Mazda','Mazdaspeed 3',2009,7,5),
+('2HNYD28478H177124','Mazda','Miata MX-5',2004,11,6),
+('1D4RD4GG5BC148980','GMC','Safari',2000,11,7),
+('WBAVB73537K075304','Ford','ZX2',2003,61,8),
+('WAULC58E04A455140','Pontiac','Firebird',1997,21,9),
+('2C3CDYCJ4EH430920','Pontiac','Firebird',2001,54,10),
+('1G6DP5EV3A0941865','Mercedes-Benz','CLK-Class',2004,9,11),
+('WA1DVAFE3AD486819','Mercury','Mountaineer',2000,92,12),
+('WAUJGAFC7DN244662','Mazda','929',1995,54,13),
+('1G6DH8EY1B0105059','Eagle','Talon',1994,59,14),
+('JN1CV6EK2CM922670','Mazda','MPV',1997,87,15),
+('WAUNF98P78A491258','Jaguar','XF',2009,4,16),
+('KNAGM4ADXB5839233','Chevrolet','Camaro',1974,78,17),
+('WBAYF8C59ED228390','Pontiac','Grand Prix',1990,46,18),
+('1G6AB5R35F0787256','Toyota','Celica',1978,67,19),
+('WAUSG74FX9N744682','Chrysler','Town & Country',2012,67,20);
 
 CREATE TABLE repairs (
     repair_ID INTEGER PRIMARY KEY NOT NULL,
