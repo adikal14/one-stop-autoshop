@@ -27,12 +27,50 @@ def get_mechanics():
 
 
 # Get all information for a single mechanic
+@mechanics.route('/mechanics/profile/<userID>', methods=['GET'])
+def get_profile(userID):
+    cursor = db.get_db().cursor()
+    cursor.execute('select first_name, last_name, mechanic_ID, average_rating, years_of_experience from mechanic where mechanic_ID = {0}'.format(userID))
+    row_headers = [x[0] for x in cursor.description]
+    json_data = []
+    theData = cursor.fetchall()
+    for row in theData:
+        json_data.append(dict(zip(row_headers, row)))
+    the_response = make_response(jsonify(json_data))
+    the_response.status_code = 200
+    the_response.mimetype = 'application/json'
+    return the_response
 
 
 # Get all work place information for chosen mechanic
-
+@mechanics.route('/mechanics/workplace/<userID>', method=['GET'])
+def get_workplace(userID):
+    cursor = db.get_db().cursor()
+    cursor.execute('select a.name, a.street, a.city, a.state, a.postalcode, man.first_name, man.last_name from account a join mechanic m join manager man where m.autoID = a.auto_ID and a.managerID = man.manager_ID and m.mechanic_ID={0}'.format(userID))
+    row_headers = [x[0] for x in cursor.description]
+    json_data = []
+    theData = cursor.fetchall()
+    for row in theData:
+        json_data.append(dict(zip(row_headers, row)))
+    the_response = make_response(jsonify(json_data))
+    the_response.status_code = 200
+    the_response.mimetype = 'application/json'
+    return the_response
 
 # Get all Account Information for chosen mechanic
+@mechanics.route('/mechanics/account/<userID>', methods=['GET'])
+def get_account(userID):
+    cursor = db.get_db().cursor()
+    cursor.execute('select a.username, a.account_ID, a.age_of_account from account a join mechanic m where m.a_ID = a.account_ID and m.manager_ID = {0}'.format(userID))
+    row_headers = [x[0] for x in cursor.description]
+    json_data = []
+    theData = cursor.fetchall()
+    for row in theData:
+        json_data.append(dict(zip(row_headers, row)))
+    the_response = make_response(jsonify(json_data))
+    the_response.status_code = 200
+    the_response.mimetype = 'application/json'
+    return the_response
 
 
 # Get all Skills information for chosen mechanic
