@@ -321,7 +321,7 @@ VALUES
 ('WAUSG74FX9N744682','Chrysler','Town & Country',2012,67,20);
 
 CREATE TABLE repairs (
-    repair_ID INTEGER PRIMARY KEY NOT NULL,
+    repair_ID INTEGER PRIMARY KEY NOT NULL AUTO_INCREMENT,
     name TEXT,
     duration FLOAT
 );

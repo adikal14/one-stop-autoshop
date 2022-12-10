@@ -29,6 +29,7 @@ def create_app():
     from src.customers.customers import customers
     from src.mechanic.mechanic  import mechanics
     from src.manager.manager import manager
+    from src.home.home import home 
 
 
     # Register the routes that we just imported so they can be properly handled
@@ -36,5 +37,6 @@ def create_app():
     app.register_blueprint(customers,   url_prefix='/cust')
     app.register_blueprint(mechanics,    url_prefix='/mech')
     app.register_blueprint(manager,    url_prefix='/man')
+    app.register_blueprint(home, url_prefix='/home')
 
     return app

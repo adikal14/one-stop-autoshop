@@ -5,21 +5,6 @@ from src import db
 
 customers = Blueprint('customers', __name__)
 
-# Get all customers from the DB
-# DELETE THIS 
-@customers.route('/customers', methods=['GET'])
-def get_customers():
-    cursor = db.get_db().cursor()
-    cursor.execute('select * from customer')
-    row_headers = [x[0] for x in cursor.description]
-    json_data = []
-    theData = cursor.fetchall()
-    for row in theData:
-        json_data.append(dict(zip(row_headers, row)))
-    the_response = make_response(jsonify(json_data))
-    the_response.status_code = 200
-    the_response.mimetype = 'application/json'
-    return the_response
 
 # Get user information for customer with particular userID
 @customers.route('/customers/profile/<userID>', methods=['GET'])
@@ -85,13 +70,21 @@ def get_reviews(userID):
     the_response.mimetype = 'application/json'
     return the_response
 
-'''
-@customers.route('/customers', methods=['POST'])
-def add_review():
-    current_app.logger.info(request.form)
-    query = f 'INSERT INTO reviews' ({request.form["nuid"]});
-    return "Hello"
-'''
+
+@customers.route('/customers/add_review/customer_ID/repair_ID/mechanic_ID/duration/price_paid/star_rating/review_description', methods=['POST'])
+def add_review(customer_ID, repair_ID, mechanic_ID, duration, price_paid, star_rating, review_description):
+    cursor = db.get_db().cursor()
+    cursor.execute = f'INSERT INTO reviews (customer_ID {customer_ID}, repair_ID {repair_ID}, mechanic_ID {mechanic_ID}, duration {duration}, price_paid {price_paid}), star_rating{star_rating}, review_description{review_description}'
+    row_headers = [x[0] for x in cursor.description]
+    json_data = []
+    theData = cursor.fetchall()
+    for row in theData:
+        json_data.append(dict(zip(row_headers, row)))
+    the_response = make_response(jsonify(json_data))
+    the_response.status_code = 200
+    the_response.mimetype = 'application/json'
+    return the_response
+
 #do a post request to add a vehicle
 #insert ngrok link, change method to POST, go to body, make sure it says "muli-part form"
 #insert as keys what the input things are in your input thing
@@ -103,6 +96,3 @@ def add_review():
 #make the attributes that the customer isn't actually entering auto increment
 
 
-#THINGS TO DO:
-    # 1) autoincrement review ID
-    # 2) 
