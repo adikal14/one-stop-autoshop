@@ -3,6 +3,8 @@ Members: Arielle Greenberg, Simone Ritcheson, Aditya Kalia
 
 Welcome to One-Stop Autoshop, an app where customers can post detailed reviews about autoshops and mechanics near them and the services their vehicle received. Users can utilize the app to read reviews of autoshops and mechanics in their area, and find mechanics near them who specialize in the services they need. 
 
+To see a demo of our app, watch this video: https://youtu.be/L44sROwWVRE (tip: put the video at 1.25 speed)
+
 Our project is connected to port 8001. Ensure when doing the ngrok link you are writing './ngrok http 8001'
 
 Due to the limited nature of the data in our database, we have written a user-friendly guide to exploring our app. We included default values in all the text boxes, but this guide includes some additional example inputs you can enter into the tables to see how the app works. 
