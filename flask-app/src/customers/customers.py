@@ -71,10 +71,26 @@ def get_reviews(userID):
     return the_response
 
 
-@customers.route('/customers/add_review/customer_ID/repair_ID/mechanic_ID/duration/price_paid/star_rating/review_description', methods=['POST'])
-def add_review(customer_ID, repair_ID, mechanic_ID, duration, price_paid, star_rating, review_description):
+@customers.route('/customers/form', methods=['POST'])
+def add_review():
+    #customer_ID, repair_ID, mechanic_ID, duration, price_paid, star_rating, review_description
+    customer_ID = request.form['customer_ID']
+    repair_ID = request.form['repair_ID']
+    mechanic_ID = request.form['mechanic_ID']
+    duration = request.form['duration']
+    price_paid = request.form['price_paid']
+    star_rating = request.form['star_rating']
+    review_description = request.form['review_description']
+    
     cursor = db.get_db().cursor()
-    cursor.execute = f'INSERT INTO reviews (customer_ID {customer_ID}, repair_ID {repair_ID}, mechanic_ID {mechanic_ID}, duration {duration}, price_paid {price_paid}), star_rating{star_rating}, review_description{review_description}'
+    cursor.execute(f'INSERT INTO reviews (customer_ID, repair_ID, mechanic_ID, duration, price_paid, star_rating, review_description) VALUES ({customer_ID}, {repair_ID}, {mechanic_ID}, {duration}, {price_paid}, {star_rating}, "{review_description}");')
+    cursor.connection.commit()
+    return get_all()
+
+@customers.route('/customers/all_reviews', methods=['GET'])
+def get_all():
+    cursor = db.get_db().cursor()
+    cursor.execute('select * from reviews')
     row_headers = [x[0] for x in cursor.description]
     json_data = []
     theData = cursor.fetchall()
@@ -84,15 +100,4 @@ def add_review(customer_ID, repair_ID, mechanic_ID, duration, price_paid, star_r
     the_response.status_code = 200
     the_response.mimetype = 'application/json'
     return the_response
-
-#do a post request to add a vehicle
-#insert ngrok link, change method to POST, go to body, make sure it says "muli-part form"
-#insert as keys what the input things are in your input thing
-##{{variablename.inputText}} in the value (you'll see the variable name to the right of the widget)
-#this allows you to bind the query to those particular attributes
-#go back to homepage, click on submit button, to the right there's something that says "on click", select "execute a query", and select the query you want to run
-#select onsuccess, you can do "show message"
-#on air, show message
-#make the attributes that the customer isn't actually entering auto increment
-
 

@@ -359,7 +359,7 @@ CREATE TABLE reviews(
     mechanic_ID INTEGER NOT NULL,
     duration FLOAT,
     price_paid FLOAT,
-    star_rating INTEGER,
+    star_rating FLOAT,
     review_description TEXT,
     PRIMARY KEY (review_ID, customer_ID, repair_ID, mechanic_ID),
     FOREIGN KEY (customer_ID) REFERENCES customer(cust_ID) ON UPDATE cascade ON DELETE restrict,

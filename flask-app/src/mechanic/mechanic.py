@@ -5,11 +5,6 @@ from src import db
 
 mechanics = Blueprint('mechanics', __name__)
 
-# Get all customers from the DB
-@mechanics.route('/test_mechanics', methods=['GET'])
-def nothing():
-    return '<h1>Yay!</h1>'
-
 # Get all mechanics from the DB
 @mechanics.route('/mechanics', methods=['GET'])
 def get_mechanics():
@@ -26,7 +21,7 @@ def get_mechanics():
     return the_response
 
 
-# Get all information for a single mechanic
+# Get all profile information for a single mechanic
 @mechanics.route('/mechanics/profile/<userID>', methods=['GET'])
 def get_profile(userID):
     cursor = db.get_db().cursor()
@@ -77,7 +72,7 @@ def get_account(userID):
 @mechanics.route('/mechanics/skills/<userID>', methods=['GET'])
 def get_skills(userID):
     cursor = db.get_db().cursor()
-    cursor.execute('select s.description, s.price, s.duration from skills s join mechanic m join mechanic_skills ms where s.skill_ID = ms.skill_ID and ms.mechanic_ID = m.mechanic_ID ')
+    cursor.execute('select s.description, s.price, s.duration from skills s join mechanic m join mechanic_skills ms where s.skill_ID = ms.skill_ID and ms.mechanic_ID = m.mechanic_ID and m.mechanic_ID = {0}'.format(userID))
     row_headers = [x[0] for x in cursor.description]
     json_data = []
     theData = cursor.fetchall()
@@ -104,5 +99,32 @@ def get_reviews(userID):
     the_response.mimetype = 'application/json'
     return the_response
 
+#a mechanic adds a skill
+@mechanics.route('/mechanics/form', methods=['POST'])
+def add_skills():
+    #customer_ID, repair_ID, mechanic_ID, duration, price_paid, star_rating, review_description
+    skill_ID = request.form['skill_ID']
+    description = request.form['description']
+    price= request.form['price']
+    duration = request.form['duration']
+    mechanic_ID = request.form['mechanic_ID']
+    cursor = db.get_db().cursor()
+    cursor.execute(f'INSERT INTO skills (skill_ID, description, price, duration) VALUES ({skill_ID}, "{description}", {price}, {duration});')
+    cursor.execute(f'INSERT INTO mechanic_skills (skill_ID, mechanic_ID) VALUES ({skill_ID}, {mechanic_ID});')
+    cursor.connection.commit()
+    return get_all_skills()
 
-    
+#get the table of all mechanics and their skills
+@mechanics.route('/mechanics/all_skills', methods=['GET'])
+def get_all_skills():
+    cursor = db.get_db().cursor()
+    cursor.execute('select * from skills')
+    row_headers = [x[0] for x in cursor.description]
+    json_data = []
+    theData = cursor.fetchall()
+    for row in theData:
+        json_data.append(dict(zip(row_headers, row)))
+    the_response = make_response(jsonify(json_data))
+    the_response.status_code = 200
+    the_response.mimetype = 'application/json'
+    return the_response

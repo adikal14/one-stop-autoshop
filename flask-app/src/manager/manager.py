@@ -4,10 +4,6 @@ from src import db
 
 manager = Blueprint('manager', __name__)
 
-# Get all managers from the DB
-@manager.route('/test_manager', methods=['GET'])
-def managers():
-    return '<h1>Yay!</h1>'
 
 # Get all managers from the database
 @manager.route('/manager', methods=['GET'])
@@ -57,11 +53,11 @@ def get_account(userID):
     return the_response
 
 
-#get autoshop information from a manager with a particular a_ID
+#get autoshop information from a manager with a particular user_ID
 @manager.route('/manager/autoshop/<userID>', methods=['GET'])
 def get_autoshop(userID):
     cursor = db.get_db().cursor()
-    cursor.execute('select a.auto_ID, a.name, a.street, a.city, a.state, a.postalcode from autoshop a where a.manager_ID = {0}'.format(userID))
+    cursor.execute('select a.auto_ID, a.name, a.street, a.city, a.state, a.postalcode from autoshop a where a.managerID = {0}'.format(userID))
     row_headers = [x[0] for x in cursor.description]
     json_data = []
     theData = cursor.fetchall()
